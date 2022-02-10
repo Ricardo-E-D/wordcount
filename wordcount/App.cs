@@ -21,12 +21,10 @@ namespace wordcount
 
             var res = counter.CountWords(root, new List<string> { ".txt"});
 
-          
 
-            foreach (var p in res)
-            {
-                db.Insert(p.Key, p.Value);
-            }
+
+            db.insertAll(res);
+            
 
             TimeSpan used = DateTime.Now - start;
             Console.WriteLine("DONE! used " + used.TotalMilliseconds);

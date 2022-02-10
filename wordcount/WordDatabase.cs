@@ -30,6 +30,35 @@ namespace wordcount
 
         }
 
+        internal void insertAll(Dictionary<string, int> res)
+        {
+            using (var transaction = _connection.BeginTransaction())
+            {
+                var command = _connection.CreateCommand();
+                command.CommandText =
+                @"INSERT INTO word(name, count) VALUES(@name,@count)";
+
+                var paramName = command.CreateParameter();
+                paramName.ParameterName = "name";
+                command.Parameters.Add(paramName);
+
+                var paramCount = command.CreateParameter();
+                paramCount.ParameterName = "count";
+                command.Parameters.Add(paramCount);
+
+                // Insert all entries in the res
+                
+                foreach (var p in res)
+                {
+                    paramName.Value = p.Key;
+                    paramCount.Value = p.Value;
+                    command.ExecuteNonQuery();
+                }
+
+                transaction.Commit();
+            }
+        }
+
         public void Insert(string word, int count)
         {
 
