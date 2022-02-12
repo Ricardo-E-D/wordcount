@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Data.Sqlite;
 
-namespace wordcount
+namespace Indexer
 {
     public class WordDatabase
     {

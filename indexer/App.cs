@@ -12,24 +12,21 @@ namespace Indexer
 
         public void Run()
         {
-            WordCounter counter = new WordCounter();
-            WordDatabase db = new WordDatabase();
+            Database db = new Database();
+            Crawler crawler = new Crawler(db);
+            
 
             var root = new DirectoryInfo(@"/Users/ole/data");
 
             DateTime start = DateTime.Now;
 
-            var res = counter.CountWords(root, new List<string> { ".txt"});
-
-
-
-            db.insertAll(res);
+            crawler.IndexFilesIn(root, new List<string> { ".txt"});
             
 
             TimeSpan used = DateTime.Now - start;
             Console.WriteLine("DONE! used " + used.TotalMilliseconds);
 
-            var all = db.GetAll();
+            var all = db.GetAllWords();
 
             foreach (var p in all)
             {

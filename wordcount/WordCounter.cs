@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace wordcount
+namespace Indexer
 {
     public class WordCounter
     {
